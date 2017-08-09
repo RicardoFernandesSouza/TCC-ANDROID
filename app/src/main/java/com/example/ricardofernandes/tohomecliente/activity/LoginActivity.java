@@ -144,11 +144,29 @@ public class LoginActivity extends Activity {
                         String password = user.getString("password");
                         String email = user.getString("email");
 
+//                        JSONObject userresp = jObj.getJSONObject("resp");
+//                        String idresp = userresp.getString("id");
+//                        String nameresp = userresp.getString("name");
+//                        String usernameresp = userresp.getString("username");
+//                        String passwordresp = userresp.getString("password");
+//                        String emailresp = userresp.getString("email");
+//
+//                        JSONObject userresi = jObj.getJSONObject("residencia");
+//                        String idresi = userresi.getString("id");
+//                        String address = userresi.getString("address");
+//                        String hood = userresi.getString("hood");
+//                        String city = userresi.getString("city");
+//                        String state = userresi.getString("state");
+//                        String idresicliente = userresi.getString("idcliente");
+//                        String idresiresp = userresi.getString("idresp");
+
 //                        String email = user
 //                                .getString("email");
 
                         // Inserting row in users table
                         db.addUser(id,name,username,password,email);
+                    //    db.addResp(idresp,nameresp,usernameresp,passwordresp,emailresp);
+                    //    db.addResidencia(idresi,address,hood,city,state,idresicliente,idresiresp);
 
                         // Launch main activity
                         Intent intent = new Intent(LoginActivity.this,
