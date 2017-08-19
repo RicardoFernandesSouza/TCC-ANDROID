@@ -4,6 +4,8 @@ apply plugin: 'android-apt'
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "com.example.ricardofernandes.tohomecliente"
         minSdkVersion 15

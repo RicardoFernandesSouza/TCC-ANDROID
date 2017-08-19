@@ -127,6 +127,8 @@ public class EtapasResponsavel extends AppCompatActivity {
     //load some initial data into out list
     private void loadData() {
 
+
+
         addProduct("Etapa 1", "Marcação da obra",false);
         addProduct("Etapa 1", "Valetas e brocas",false);
         addProduct("Etapa 1", "Alicerce e impermeabilização",false);

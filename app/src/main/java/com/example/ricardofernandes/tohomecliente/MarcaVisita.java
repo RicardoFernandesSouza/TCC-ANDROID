@@ -31,6 +31,7 @@ public class MarcaVisita extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marca_visita);
+        setTitle( "Marcar Visita" );
         final Calendar cal = getInstance();
         year = cal.get(Calendar.YEAR);
         month = cal.get(Calendar.MONTH);

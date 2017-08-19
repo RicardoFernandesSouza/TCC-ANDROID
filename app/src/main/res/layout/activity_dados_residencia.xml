@@ -11,42 +11,17 @@
     tools:context="com.example.ricardofernandes.tohomecliente.DadosResidencia"
     android:background="@color/AppBrown">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:background="@color/AppBrown"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textColor="@color/white"
-            android:textSize="24dp" />
-
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="13dp" />
-
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="13dp" />
-
-
-
-
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:padding="100dp"
+            tools:textAlignment="center" />
 
     </LinearLayout>
 

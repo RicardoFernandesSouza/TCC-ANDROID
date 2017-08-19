@@ -1,10 +1,12 @@
 package com.example.ricardofernandes.tohomecliente;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -29,7 +31,7 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 public class TiraFoto extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int REQUEST_TAKE_PHOTO = 1;
+    private static final int REQUEST_TAKE_PHOTO = 0;
 
     Button btnTakePhoto;
     ImageView ivPreview;
@@ -46,7 +48,7 @@ public class TiraFoto extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void initInstances() {
-//        btnTakePhoto = (Button) findViewById(R.id.btnTakePhoto);
+        btnTakePhoto = (Button) findViewById(R.id.button5);
 //        ivPreview = (ImageView) findViewById(R.id.ivPreview);
 //
 //        btnTakePhoto.setOnClickListener(this);
@@ -59,7 +61,7 @@ public class TiraFoto extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if (view == btnTakePhoto) {
-            TiraFotoPermissionsDispatcher.startCameraWithCheck(this);
+           // TiraFotoPermissionsDispatcher.startCameraWithCheck(this);
             startCamera();
         }
     }
@@ -109,7 +111,7 @@ public class TiraFoto extends AppCompatActivity implements View.OnClickListener 
             try {
                 startActivity(Intent.createChooser(i, "Send mail..."));
                 finish();
-            } catch (android.content.ActivityNotFoundException ex) {
+            } catch (ActivityNotFoundException ex) {
                 Toast.makeText(TiraFoto.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 finish();
 
@@ -124,12 +126,14 @@ public class TiraFoto extends AppCompatActivity implements View.OnClickListener 
 //            }
 
             // ScanFile so it will be appeared on Gallery
-            MediaScannerConnection.scanFile(TiraFoto.this,
-                    new String[]{imageUri.getPath()}, null,
-                    new MediaScannerConnection.OnScanCompletedListener() {
-                        public void onScanCompleted(String path, Uri uri) {
-                        }
-                    });
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+                MediaScannerConnection.scanFile(TiraFoto.this,
+                        new String[]{imageUri.getPath()}, null,
+                        new MediaScannerConnection.OnScanCompletedListener() {
+                            public void onScanCompleted(String path, Uri uri) {
+                            }
+                        });
+            }
         }
     }
 
@@ -143,8 +147,11 @@ public class TiraFoto extends AppCompatActivity implements View.OnClickListener 
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DCIM), "Camera");
+        File storageDir = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO) {
+            storageDir = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DCIM), "Camera");
+        }
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
