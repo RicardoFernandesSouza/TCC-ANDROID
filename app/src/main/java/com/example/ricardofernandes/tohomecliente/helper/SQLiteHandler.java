@@ -105,6 +105,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, id);
         values.put(KEY_NAME, name); // Name
         values.put(KEY_USER_NAME, username); // NOME DE USUÁRIO
         values.put(KEY_USER_PASSWORD, password); // SENHA
@@ -112,7 +113,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         // Inserting Row
         long uid = db.insert(TABLE_CLIENTE, null, values);
-        values.put(KEY_ID, id); // Email
+       // values.put(KEY_ID, id); // Email
 
         db.close(); // Closing database connection
 

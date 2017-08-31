@@ -38,7 +38,7 @@ public class DadosResponsavel extends ListActivity {
 
     // url to get all products list
     //private static String url_all_products = "http://172.16.128.186/android_connect/get_all_products.php";
-    private static String url_all_products = "http://192.168.0.32//android_connect/get_responsavel.php";
+    private static String url_all_products = "http://172.16.128.186//android_connect/get_responsavel.php";
 
 
     // JSON Node names

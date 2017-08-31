@@ -33,7 +33,9 @@ import java.util.Map;
 
 
 public class LoginActivity extends Activity {
-   private static final String TAG = AppController.class.getSimpleName();
+    Intent pid;
+
+    private static final String TAG = AppController.class.getSimpleName();
     private Button btnLogin;
    // private Button btnLinkToRegister;
     private EditText inputUsername;
@@ -41,10 +43,18 @@ public class LoginActivity extends Activity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+    private static final String TAG_PID = "pid";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent i = getIntent();
+
+        // getting product id (pid) from intent
+        i.putExtra(TAG_PID, pid);
+
        // setTheme(R.style.AppTheme_NoActionBar);
 
         setContentView(R.layout.activity_login);
