@@ -35,7 +35,9 @@ public class EscolhaProjeto extends ListActivity {
     private ProgressDialog pDialog;
     JSONParser jParser = new JSONParser();
     ArrayList<HashMap<String, String>> productsList;
-    private static String url_products_details = "http://172.16.128.186//android_connect/get_residencias.php";
+   // private static String url_products_details = "http://172.16.128.186//android_connect/get_residencias.php";
+    private static String url_products_details = "http://192.168.0.14//android_connect/get_residencias.php";
+
 
     // JSON Node names
     private static final String TAG_SUCCESS = "success";
@@ -114,6 +116,7 @@ public class EscolhaProjeto extends ListActivity {
                         MainActivity.class);
                 // sending pid to next activity
                 in.putExtra(TAG_PID, pid);
+                db.addResidencia(pid,null,null,null,null,null,null,null,null,null);
 
                 // starting new activity and expecting some response back
                 startActivityForResult(in, 100);
@@ -199,6 +202,8 @@ public class EscolhaProjeto extends ListActivity {
                         map.put(TAG_STATE, state);
                         map.put(TAG_BEGIN, begindate);
                         map.put(TAG_END, enddate);
+                        //db.addResidencia(id,address,hood,zip_code,city,state,begindate,enddate,null,null);
+
 
                         // adding HashList to ArrayList
                         productsList.add(map);

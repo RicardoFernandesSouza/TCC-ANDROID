@@ -24,6 +24,9 @@ import com.example.ricardofernandes.tohomecliente.helper.SQLiteHandler;
 import com.example.ricardofernandes.tohomecliente.helper.SessionManager;
 
 public class MainActivity extends AppCompatActivity {
+    String pid;
+    private static final String TAG_PID = "id";
+
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private SQLiteHandler db;
     private SessionManager session;
 
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -47,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         setTitle("To Home");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent i = getIntent();
+
+        // getting product id (pid) from intent
+        pid = i.getStringExtra(TAG_PID);
+        i.putExtra(TAG_PID, pid);
+
 
         //
 //        // SqLite database handler

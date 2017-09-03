@@ -13,7 +13,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.ricardofernandes.tohomecliente.helper.SQLiteHandler;
+import com.example.ricardofernandes.tohomecliente.helper.SessionManager;
+
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +31,7 @@ import java.util.List;
  */
 
 public class DadosResidencia extends ListActivity {
+    String pid;
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -38,7 +43,7 @@ public class DadosResidencia extends ListActivity {
 
     // url to get all products list
     //private static String url_all_products = "http://172.16.128.186/android_connect/get_all_products.php";
-    private static String url_all_products = "http://172.16.128.186//android_connect/get_residencias.php";
+    private static String url_all_products = "http://172.16.128.186//android_connect/get_residencia_dados.php";
 
 
     // JSON Node names
@@ -54,16 +59,23 @@ public class DadosResidencia extends ListActivity {
     private static final String TAG_BEGIN = "begindate";
     private static final String TAG_END = "enddate";
 
-
-
-
     // products JSONArray
     JSONArray residencia = null;
+
+    private SQLiteHandler db;
+    private SessionManager session;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dados_residencia);
+        db = new SQLiteHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+
+        HashMap<String, String> user = db.getUserDetailsResi();
+        String userId = user.get("id");
+        pid = userId;
+
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -138,6 +150,8 @@ public class DadosResidencia extends ListActivity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", pid));
+
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
 
