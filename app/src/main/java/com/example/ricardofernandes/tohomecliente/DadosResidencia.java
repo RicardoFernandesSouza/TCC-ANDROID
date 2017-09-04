@@ -42,8 +42,8 @@ public class DadosResidencia extends ListActivity {
     ArrayList<HashMap<String, String>> productsList;
 
     // url to get all products list
-    //private static String url_all_products = "http://172.16.128.186/android_connect/get_all_products.php";
     private static String url_all_products = "http://172.16.128.186//android_connect/get_residencia_dados.php";
+  //  private static String url_all_products = "http://192.168.0.14//android_connect/get_residencia_dados.php";
 
 
     // JSON Node names
@@ -58,6 +58,8 @@ public class DadosResidencia extends ListActivity {
     private static final String TAG_STATE = "state";
     private static final String TAG_BEGIN = "begindate";
     private static final String TAG_END = "enddate";
+    private static final String TAG_RESPID = "idresp";
+
 
     // products JSONArray
     JSONArray residencia = null;
@@ -180,6 +182,8 @@ public class DadosResidencia extends ListActivity {
                         String state = c.getString(TAG_STATE);
                         String begindate = c.getString(TAG_BEGIN);
                         String enddate = c.getString(TAG_END);
+                        String respId = c.getString(TAG_RESPID);
+
 
                         // creating new HashMap
                         HashMap<String, String> map = new HashMap<String, String>();
@@ -193,6 +197,7 @@ public class DadosResidencia extends ListActivity {
                         map.put(TAG_STATE, state);
                         map.put(TAG_BEGIN, begindate);
                         map.put(TAG_END, enddate);
+                        map.put(TAG_RESPID, respId);
 
                         // adding HashList to ArrayList
                         productsList.add(map);

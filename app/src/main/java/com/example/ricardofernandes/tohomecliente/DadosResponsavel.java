@@ -13,7 +13,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.ricardofernandes.tohomecliente.helper.SQLiteHandler;
+import com.example.ricardofernandes.tohomecliente.helper.SessionManager;
+
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +31,7 @@ import java.util.List;
  */
 
 public class DadosResponsavel extends ListActivity {
+    String pid;
 
     // Progress Dialog
     private ProgressDialog pDialog;
@@ -54,11 +59,19 @@ public class DadosResponsavel extends ListActivity {
 
     // products JSONArray
     JSONArray responsavel = null;
+    private SQLiteHandler db;
+    private SessionManager session;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dados_responsavel);
+        db = new SQLiteHandler(getApplicationContext());
+        session = new SessionManager(getApplicationContext());
+
+        HashMap<String, String> user = db.getUserDetailsResi();
+        String userIdResp = user.get("idresp");
+        pid = userIdResp;
 
         // Hashmap for ListView
         productsList = new ArrayList<HashMap<String, String>>();
@@ -133,6 +146,8 @@ public class DadosResponsavel extends ListActivity {
         protected String doInBackground(String... args) {
             // Building Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("id", pid));
+
             // getting JSON string from URL
             JSONObject json = jParser.makeHttpRequest(url_all_products, "GET", params);
 

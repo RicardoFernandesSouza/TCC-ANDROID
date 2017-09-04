@@ -1,5 +1,4 @@
 package com.example.ricardofernandes.tohomecliente;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -46,9 +45,9 @@ public class TiraFoto extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-      //  this.imageView = (ImageView)this.findViewById(R.id.imageView);
-        Button photoButton = (Button) this.findViewById(R.id.btnTakePhoto);
+        setContentView(R.layout.activity_tira_foto);
+        this.imageView = (ImageView)this.findViewById(R.id.imageView);
+        Button photoButton = (Button) this.findViewById(R.id.button);
         photoButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -73,7 +72,7 @@ public class TiraFoto extends Activity {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
 
             Bitmap photo = BitmapFactory.decodeFile(f.getAbsolutePath());
-            imageView.setImageBitmap(photo);
+//            imageView.setImageBitmap(photo);
 
             Intent i = new Intent(Intent.ACTION_SEND);
             i.setType("message/rfc822");

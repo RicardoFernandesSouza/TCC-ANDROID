@@ -111,6 +111,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(KEY_USER_PASSWORD, password); // SENHA
         values.put(KEY_EMAIL, email); // Email
 
+
         // Inserting Row
         long uid = db.insert(TABLE_CLIENTE, null, values);
        // values.put(KEY_ID, id); // Email
@@ -158,11 +159,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         // Inserting Row
         long uidresi = db.insert(TABLE_RESIDENCIA, null, values);
-        values.put(KEY_RESP_ID, id); // Email
+        values.put(KEY_RESI_ID, id); // Email
+        values.put(KEY_RESI_ID_RESPONSAVEL,idresp);
 
         db.close(); // Closing database connection
 
-        Log.d(TAG, "New RESIDENCIA inserted into sqlite: " + uidresi);
+        Log.d(TAG, "New RESIDENCIA inserted into sqlite: " + uidresi + " and Responsável: " + idresp);
 
     }
 
@@ -254,6 +256,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Delete All Rows
         db.delete(TABLE_CLIENTE, null, null);
      //   db.delete(TABLE_RESPONSAVEL, null, null);
+        db.delete(TABLE_RESIDENCIA, null, null);
+        db.close();
+
+        Log.d(TAG, "Deleted all user info from sqlite");
+    }
+    public void deleteResi() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        //   db.delete(TABLE_RESPONSAVEL, null, null);
         db.delete(TABLE_RESIDENCIA, null, null);
         db.close();
 
