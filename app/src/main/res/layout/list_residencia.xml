@@ -92,6 +92,6 @@
         android:textColor="@color/bg_register"
         android:textSize="17dip"
         android:textStyle="bold"
-        />
+        android:visibility="gone" />
 
 </LinearLayout>
