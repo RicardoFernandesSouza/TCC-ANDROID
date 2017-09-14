@@ -28,6 +28,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String TABLE_CLIENTE = "cliente";
     private static final String TABLE_RESPONSAVEL = "resp";
     private static final String TABLE_RESIDENCIA = "residencia";
+    private static final String TABLE_ETAPAS = "etapa";
+
 
     // Login Table Columns names
     private static final String KEY_ID = "id";
@@ -52,6 +54,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_RESI_DATA_FIM = "enddate";
     private static final String KEY_RESI_ID_CLIENTE = "idcliente";
     private static final String KEY_RESI_ID_RESPONSAVEL = "idresp";
+
+    private static final String KEY_ETAPA_ID = "id";
+    private static final String KEY_ETAPA_RESI_ID = "idresi";
+    private static final String KEY_ETAPA_NAME = "name";
+    private static final String KEY_ETAPA_DETAILS = "details";
+    private static final String KEY_ETAPA_STATUS = "status";
+
 
 
     public SQLiteHandler(Context context) {
@@ -78,6 +87,12 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + KEY_RESI_DATA_FIM + " TEXT," + KEY_RESI_ID_CLIENTE + " INTEGER," + KEY_RESI_ID_RESPONSAVEL +
                 " INTEGER" +  ")";
         db.execSQL(CREATE_TABLE_RESIDENCIA);
+
+        String CREATE_TABLE_ETAPAS = "CREATE TABLE " + TABLE_ETAPAS + "("
+                + KEY_ETAPA_ID + " INTEGER PRIMARY KEY,"  + KEY_ETAPA_RESI_ID + " TEXT,"
+                + KEY_ETAPA_NAME + " TEXT," + KEY_ETAPA_DETAILS + " TEXT,"
+                + KEY_ETAPA_STATUS + " TEXT," +  ")";
+        db.execSQL(CREATE_TABLE_ETAPAS);
 
         //AQUI PASSAMOS TODAS AS OUTRAS TABELAS QUE TEM NO BANCO
 
@@ -168,6 +183,28 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     }
 
+    public void addEtapa(String id, String idresi, String name, String details, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(KEY_ETAPA_ID,id);
+        values.put(KEY_ETAPA_RESI_ID,idresi);
+      //  values.put(KEY_ETAPA_NAME,name);
+       // values.put(KEY_ETAPA_DETAILS,details);
+      //  values.put(KEY_ETAPA_STATUS,status);
+
+        // Inserting Row
+        long uidetapa = db.insert(TABLE_ETAPAS, null, values);
+        values.put(KEY_ETAPA_ID, id); // Email
+        values.put(KEY_ETAPA_RESI_ID,idresi);
+
+        db.close(); // Closing database connection
+
+        Log.d(TAG, "New Etapa inserted into sqlite: " + uidetapa + " and ID DA ETAPA: " + id + " and ID DA RESIDENCIA: "+idresi);
+
+    }
+
     /**
      * Getting user data from database
      * */
@@ -247,6 +284,28 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         return user;
     }
+    public HashMap<String, String> getUserDetailsEtapa() {
+        HashMap<String, String> user = new HashMap<String, String>();
+        String selectQuery = "SELECT * FROM " + TABLE_ETAPAS;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+            user.put("id", cursor.getString(0));
+            user.put("idresi", cursor.getString(1));
+            //user.put("name", cursor.getString(2));
+            //user.put("details", cursor.getString(3));
+           // user.put("status", cursor.getString(4));
+        }
+        cursor.close();
+        db.close();
+        // return user
+        Log.d(TAG, "Fetching user from Sqlite ETAPAS: " + user.toString());
+
+        return user;
+    }
 
     /**
      * Re crate database Delete all tables and create them again
@@ -257,6 +316,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.delete(TABLE_CLIENTE, null, null);
      //   db.delete(TABLE_RESPONSAVEL, null, null);
         db.delete(TABLE_RESIDENCIA, null, null);
+        db.delete(TABLE_ETAPAS, null, null);
+
         db.close();
 
         Log.d(TAG, "Deleted all user info from sqlite");
@@ -269,6 +330,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.d(TAG, "Deleted all user info from sqlite");
+    }
+    public void deleteEtapas() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        //   db.delete(TABLE_RESPONSAVEL, null, null);
+        db.delete(TABLE_ETAPAS, null, null);
+        db.close();
+
+        Log.d(TAG, "Tabela de Etapas excluída do SQLITE");
     }
 
 }
