@@ -316,7 +316,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.delete(TABLE_CLIENTE, null, null);
      //   db.delete(TABLE_RESPONSAVEL, null, null);
         db.delete(TABLE_RESIDENCIA, null, null);
-        db.delete(TABLE_ETAPAS, null, null);
+       // db.delete(TABLE_ETAPAS, null, null);
 
         db.close();
 
